@@ -4,10 +4,13 @@
 	android:layout_height="fill_parent">
 	<TextView android:layout_width="fill_parent"
 		android:layout_height="wrap_content" android:text="@string/message_select_board" />
+	<TextView android:text="" android:id="@+id/TextView01"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
 	<Button android:text="@string/board_megami" android:id="@+id/Button01"
 		android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
 	<Button android:text="@string/board_neet4pink" android:id="@+id/Button02"
 		android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
-	<TextView android:layout_width="fill_parent" android:id="@+id/Text01"
-		android:layout_height="wrap_content" android:text="hoge" />
+	<ListView android:id="@+id/ListView01" android:layout_width="wrap_content"
+		android:layout_height="wrap_content"></ListView>
+
 </LinearLayout>
