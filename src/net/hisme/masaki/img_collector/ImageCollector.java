@@ -54,7 +54,7 @@ public class ImageCollector extends Activity {
 			public void onItemClick(AdapterView<?> parent, View view, int position,
 					long id) {
 				TextView text = (TextView) findViewById(R.id.TextView01);
-				text.setText("");
+				text.setText("send request...");
 				postAddRequest(_host, _board, threads.get(position)[0]);
 			}
 		});
