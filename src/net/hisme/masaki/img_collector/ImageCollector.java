@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import android.util.Log;
 
 import net.hisme.masaki.Access2ch;
 
@@ -39,58 +40,80 @@ public class ImageCollector extends Activity {
 		});
 	}
 
-	private void openBoard(String host, String board) {
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-				R.layout.thread);
-		final ArrayList<String[]> threads = Access2ch.threads(host, board);
-		for (String[] thread : threads) {
-			adapter.add(thread[1]);
-		}
-		ListView list = (ListView) findViewById(R.id.ListView01);
-		list.setAdapter(adapter);
-		final String _host = host;
-		final String _board = board;
-		list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view, int position,
-					long id) {
-				TextView text = (TextView) findViewById(R.id.TextView01);
-				text.setText("send request...");
-				postAddRequest(_host, _board, threads.get(position)[0]);
+	private void openBoard(final String host, final String board) {
+		TextView text = (TextView) findViewById(R.id.TextView01);
+		text.setText("Open Board...");
+		new Thread() {
+			public void run() {
+				try {
+					ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+							ImageCollector.this, R.layout.thread);
+					final ArrayList<String[]> threads = Access2ch.threads(host, board);
+					for (String[] thread : threads) {
+						adapter.add(thread[1]);
+					}
+					ListView list = (ListView) findViewById(R.id.ListView01);
+					list.setAdapter(adapter);
+					final String _host = host;
+					final String _board = board;
+					list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+						public void onItemClick(AdapterView<?> parent, View view,
+								int position, long id) {
+							postAddRequest(_host, _board, threads.get(position)[0]);
+						}
+					});
+				} catch (Exception e) {
+					ImageCollector.log(e.toString());
+				}
 			}
-		});
+		}.start();
 	}
 
-	private void postAddRequest(String host, String board, String thread) {
+	private void postAddRequest(final String host, final String board,
+			final String thread) {
 		TextView text = (TextView) findViewById(R.id.TextView01);
-		String thread_uri = "http://" + host + "/test/read.cgi/" + board + "/"
-				+ thread + "/";
-		try {
-			URL uri = new URL(
-					"http://hisme.net/~masaki/img_collector/_add_thread.php");
-			HttpURLConnection http = (HttpURLConnection) uri.openConnection();
-			http.setRequestMethod("POST");
-			http.setDoOutput(true);
-			http.setDoInput(true);
-			PrintWriter writer = new PrintWriter(http.getOutputStream());
+		text.setText("send request...");
 
-			writer.print("uri=" + thread_uri);
-			writer.flush();
-			writer.close();
+		new Thread() {
+			public void run() {
+				TextView text = (TextView) findViewById(R.id.TextView01);
+				String thread_uri = "http://" + host + "/test/read.cgi/" + board + "/"
+						+ thread + "/";
+				try {
+					URL uri = new URL(
+							"http://hisme.net/~masaki/img_collector/_add_thread.php");
+					HttpURLConnection http = (HttpURLConnection) uri.openConnection();
+					http.setRequestMethod("POST");
+					http.setDoOutput(true);
+					http.setDoInput(true);
+					PrintWriter writer = new PrintWriter(http.getOutputStream());
 
-			BufferedReader reader = new BufferedReader(new InputStreamReader(http
-					.getInputStream()));
-			text.setText(reader.readLine() + " : " + thread_uri);
-			reader.close();
+					writer.print("uri=" + thread_uri);
+					writer.flush();
+					writer.close();
 
-			http.disconnect();
-		} catch (java.net.MalformedURLException e) {
-			// return e.toString();
-		} catch (java.io.IOException e) {
-			// return e.toString();
-		} catch (java.lang.IllegalStateException e) {
-			// return e.toString();
-		} catch (NullPointerException e) {
-			// return e.toString();
-		}
+					BufferedReader reader = new BufferedReader(new InputStreamReader(http
+							.getInputStream()));
+					text.setText(reader.readLine() + " : " + thread_uri);
+					reader.close();
+
+					http.disconnect();
+				} catch (java.net.MalformedURLException e) {
+					ImageCollector.log(e.toString());
+				} catch (java.io.IOException e) {
+					ImageCollector.log(e.toString());
+				} catch (java.lang.IllegalStateException e) {
+					ImageCollector.log(e.toString());
+				} catch (NullPointerException e) {
+					ImageCollector.log(e.toString());
+				} catch (Exception e) {
+					ImageCollector.log(e.toString());
+				}
+			}
+		}.start();
+	}
+
+	static void log(String str) {
+		Log.d("[ImageCollector]", str);
 	}
 }
