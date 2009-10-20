@@ -30,7 +30,12 @@ public class Access2ch {
 			}
 			Collections.sort(res, new Comparator<String[]>() {
 				public int compare(String[] a, String[] b) {
-					return Integer.parseInt(b[0]) - Integer.parseInt(a[0]);
+					double c = Double.parseDouble(b[0]) - Double.parseDouble(a[0]);
+					if (c > 0)
+						return 1;
+					if (c == 0)
+						return 0;
+					return -1;
 				}
 			});
 
