@@ -25,8 +25,7 @@ public class Access2ch {
 					new GZIPInputStream(http.getInputStream()), "SHIFT_JIS"));
 			String line = null;
 			while ((line = reader.readLine()) != null) {
-				String[] thread = line.split(".dat<>");
-				res.add(thread);
+				res.add(line.split(".dat<>"));
 			}
 			Collections.sort(res, new Comparator<String[]>() {
 				public int compare(String[] a, String[] b) {

@@ -31,12 +31,12 @@ public class ImageCollector extends Activity {
 
 		button1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				openBoard("venus.bbspink.com", "megami");
+				openBoard("kilauea.bbspink.com", "megami");
 			}
 		});
 		button2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				openBoard("yomi.bbspink.com", "neet4pink");
+				openBoard("pele.bbspink.com", "neet4pink");
 			}
 		});
 	}
