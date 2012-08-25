@@ -1,16 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical" android:layout_width="fill_parent"
-	android:layout_height="fill_parent">
-	<TextView android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:text="@string/message_select_board" />
-	<TextView android:text="" android:id="@+id/TextView01"
-		android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
-	<Button android:text="@string/board_megami" android:id="@+id/Button01"
-		android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
-	<Button android:text="@string/board_neet4pink" android:id="@+id/Button02"
-		android:layout_width="fill_parent" android:layout_height="wrap_content"></Button>
-	<ListView android:id="@+id/ListView01" android:layout_width="wrap_content"
-		android:layout_height="wrap_content"></ListView>
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/message_select_board" />
+
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="" >
+    </TextView>
+
+    <Button
+        android:id="@+id/Button01"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/board_megami" >
+    </Button>
+
+    <Button
+        android:id="@+id/Button02"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/board_neet4pink" >
+    </Button>
+
+    <ListView
+        android:id="@+id/ListView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+    </ListView>
 
 </LinearLayout>

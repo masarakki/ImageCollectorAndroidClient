@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">Image Collector</string>
-	<string name="message_select_board">Select Board</string>
-	<string name="board_megami">女神板</string>
-	<string name="board_neet4pink">ニー速PINK</string>
+
+    <string name="app_name">Image Collector</string>
+    <string name="message_select_board">Select Board</string>
+    <string name="board_megami">女神板</string>
+    <string name="board_neet4pink">ニー速PINK</string>
+
 </resources>
