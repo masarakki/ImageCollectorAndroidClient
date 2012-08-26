@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Button;
 import android.widget.TextView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ArrayAdapter;
@@ -15,10 +16,8 @@ import java.io.InputStreamReader;
 import java.io.BufferedReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import android.util.Log;
 
-import net.hisme.masaki.Access2ch;
+import net.hisme.masaki.access_2ch.*;
 
 public class ImageCollector extends Activity {
 
@@ -47,7 +46,7 @@ public class ImageCollector extends Activity {
     final Handler handler = new Handler();
     new Thread() {
       public void run() {
-        final ArrayList<String[]> threads = Access2ch.threads(host, board);
+        final BbsThreadList threads = Access2ch.threads(host, board);
         handler.post(new Runnable() {
           public void run() {
             ImageCollector.this.displayThreadList(host, board, threads);
@@ -57,32 +56,27 @@ public class ImageCollector extends Activity {
     }.start();
   }
 
-  private void displayThreadList(final String host, final String board,
-      final ArrayList<String[]> threads) {
-    ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-        ImageCollector.this, R.layout.thread);
-    for (String[] thread : threads) {
-      adapter.add(thread[1]);
+  private void displayThreadList(final String host, final String board, final BbsThreadList threads) {
+    ArrayAdapter<String> adapter = new ArrayAdapter<String>(ImageCollector.this, R.layout.thread);
+    for (BbsThread thread : threads) {
+      adapter.add(thread.getTitle());
     }
     ListView list = (ListView) findViewById(R.id.ListView01);
     list.setAdapter(adapter);
     list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-      public void onItemClick(AdapterView<?> parent, View view, int position,
-          long id) {
-        postAddRequest(host, board, threads.get(position)[0]);
+      public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        postAddRequest(host, board, threads.get(position).getThreadId());
       }
     });
   }
 
-  private void postAddRequest(final String host, final String board,
-      final String thread) {
+  private void postAddRequest(final String host, final String board, final String thread_id) {
     TextView text = (TextView) findViewById(R.id.TextView01);
     text.setText("send request...");
     final Handler handler = new Handler();
     new Thread() {
       public void run() {
-        final String thread_uri = "http://" + host + "/test/read.cgi/" + board
-            + "/" + thread + "/";
+        final String thread_uri = String.format("http://%s/test/read.cgi/%s/%s/", host, board, thread_id);
         try {
           URL uri = new URL("http://hisme.net/~masaki/img_collector/_add_thread.php");
           HttpURLConnection http = (HttpURLConnection) uri.openConnection();
@@ -95,8 +89,7 @@ public class ImageCollector extends Activity {
           writer.flush();
           writer.close();
 
-          BufferedReader reader = new BufferedReader(new InputStreamReader(http
-              .getInputStream()));
+          BufferedReader reader = new BufferedReader(new InputStreamReader(http.getInputStream()));
           final String post_result = reader.readLine();
           handler.post(new Runnable() {
             public void run() {

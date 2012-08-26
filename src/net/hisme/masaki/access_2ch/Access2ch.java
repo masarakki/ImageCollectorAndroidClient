@@ -1,19 +1,16 @@
-package net.hisme.masaki;
+package net.hisme.masaki.access_2ch;
 
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.zip.GZIPInputStream;
 import java.io.InputStreamReader;
 import java.io.BufferedReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 public class Access2ch {
-  public static ArrayList<String[]> threads(String host, String board) {
-    ArrayList<String[]> res = new ArrayList<String[]>();
+  public static BbsThreadList threads(String host, String board) {
+    BbsThreadList thread_list = new BbsThreadList();
     try {
-      URL uri = new URL("http://" + host + "/" + board + "/subject.txt");
+      URL uri = new URL(String.format("http://%s/%s/subject.txt", host, board));
       HttpURLConnection http = (HttpURLConnection) uri.openConnection();
       http.setRequestMethod("GET");
       http.addRequestProperty("Accept-Encoding", "gzip");
@@ -25,18 +22,9 @@ public class Access2ch {
           new GZIPInputStream(http.getInputStream()), "SHIFT_JIS"));
       String line = null;
       while ((line = reader.readLine()) != null) {
-        res.add(line.split(".dat<>"));
+        thread_list.add(BbsThread.parseLine(line));
       }
-      Collections.sort(res, new Comparator<String[]>() {
-        public int compare(String[] a, String[] b) {
-          double c = Double.parseDouble(b[0]) - Double.parseDouble(a[0]);
-          if (c > 0)
-            return 1;
-          if (c == 0)
-            return 0;
-          return -1;
-        }
-      });
+      thread_list.sort();
 
       reader.close();
       http.disconnect();
@@ -49,6 +37,6 @@ public class Access2ch {
     } catch (NullPointerException e) {
       // return e.toString();
     }
-    return res;
+    return thread_list;
   }
 }
