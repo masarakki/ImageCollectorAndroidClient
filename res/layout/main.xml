@@ -4,34 +4,14 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/buttons"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/message_select_board" />
-
-    <TextView
-        android:id="@+id/TextView01"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="" >
-    </TextView>
-
-    <Button
-        android:id="@+id/Button01"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/board_megami" >
-    </Button>
-
-    <Button
-        android:id="@+id/Button02"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/board_neet4pink" >
-    </Button>
+        android:orientation="vertical" />
 
     <ListView
-        android:id="@+id/ListView01"
+        android:id="@+id/thread_list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
     </ListView>
