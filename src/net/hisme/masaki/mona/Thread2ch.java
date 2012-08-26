@@ -1,6 +1,6 @@
-package net.hisme.masaki.access_2ch;
+package net.hisme.masaki.mona;
 
-public class BbsThread {
+public class Thread2ch {
   private String thread_id;
   private String title;
 
@@ -12,15 +12,16 @@ public class BbsThread {
     return title;
   }
 
-  public BbsThread(String thread_id, String title) {
+  public Thread2ch(String thread_id, String title) {
     this.thread_id = thread_id;
     this.title = title;
   }
 
-  public static BbsThread parseLine(String line) {
+  public static Thread2ch parseLine(String line) {
     String[] columns = line.split(".dat<>");
     String thread_id = columns[0];
     String title = columns[1];
-    return new BbsThread(thread_id, title);
+    return new Thread2ch(thread_id, title);
   }
+
 }

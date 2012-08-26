@@ -1,9 +1,9 @@
-package net.hisme.masaki.img_collector.test.access_2ch;
+package net.hisme.masaki.mona.test;
 
 import net.hisme.masaki.img_collector.test.TestBase;
-import java.net.URL;
+import net.hisme.masaki.mona.*;
 
-import net.hisme.masaki.access_2ch.Board;
+import java.net.URL;
 
 import static org.junit.Assert.*;
 

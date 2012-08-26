@@ -1,16 +1,16 @@
-package net.hisme.masaki.access_2ch;
+package net.hisme.masaki.mona;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class ThreadList extends ArrayList<BbsThread> {
+public class ThreadList extends ArrayList<Thread2ch> {
   private static final long serialVersionUID = 1L;
-
+  
   public void sort() {
-    Collections.sort(this, new Comparator<BbsThread>() {
+    Collections.sort(this, new Comparator<Thread2ch>() {
       @Override
-      public int compare(BbsThread a, BbsThread b) {
+      public int compare(Thread2ch a, Thread2ch b) {
         return (int) (Double.parseDouble(b.getThreadId()) - Double.parseDouble(a.getThreadId()));
       }
     });

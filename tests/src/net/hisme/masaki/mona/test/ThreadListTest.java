@@ -1,9 +1,8 @@
-package net.hisme.masaki.img_collector.test.access_2ch;
+package net.hisme.masaki.mona.test;
 
 import static org.junit.Assert.*;
 
-import net.hisme.masaki.access_2ch.BbsThread;
-import net.hisme.masaki.access_2ch.ThreadList;
+import net.hisme.masaki.mona.*;
 
 import org.junit.After;
 import org.junit.Before;
@@ -11,7 +10,7 @@ import org.junit.Test;
 
 public class ThreadListTest {
   private ThreadList thread_list;
-  private BbsThread bbs_thread;
+  private Thread2ch bbs_thread;
 
   private String[] ids = {
       "200000",
@@ -29,7 +28,7 @@ public class ThreadListTest {
   public void setUp() throws Exception {
     thread_list = new ThreadList();
     for (int i = 0; i < ids.length; i++) {
-      thread_list.add(new BbsThread(ids[i], titles[i]));
+      thread_list.add(new Thread2ch(ids[i], titles[i]));
     }
   }
 

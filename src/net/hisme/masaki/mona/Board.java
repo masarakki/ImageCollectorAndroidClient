@@ -1,4 +1,4 @@
-package net.hisme.masaki.access_2ch;
+package net.hisme.masaki.mona;
 
 import java.net.URL;
 
@@ -33,6 +33,7 @@ public class Board {
     }
   }
 
-  // public BbsThreadList getThreadList() {
-  // }
+  public ThreadList getThreadList() {
+    return MonaUtils.getThreadList(this);
+  }
 }
