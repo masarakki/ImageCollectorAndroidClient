@@ -7,8 +7,8 @@ import java.io.InputStreamReader;
 import java.io.BufferedReader;
 
 public class Access2ch {
-  public static BbsThreadList threads(String host, String board) {
-    BbsThreadList thread_list = new BbsThreadList();
+  public static ThreadList threads(String host, String board) {
+    ThreadList thread_list = new ThreadList();
     try {
       URL uri = new URL(String.format("http://%s/%s/subject.txt", host, board));
       HttpURLConnection http = (HttpURLConnection) uri.openConnection();

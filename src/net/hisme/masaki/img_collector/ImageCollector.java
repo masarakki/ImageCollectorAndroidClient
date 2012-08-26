@@ -46,7 +46,7 @@ public class ImageCollector extends Activity {
     final Handler handler = new Handler();
     new Thread() {
       public void run() {
-        final BbsThreadList threads = Access2ch.threads(host, board);
+        final ThreadList threads = Access2ch.threads(host, board);
         handler.post(new Runnable() {
           public void run() {
             ImageCollector.this.displayThreadList(host, board, threads);
@@ -56,7 +56,7 @@ public class ImageCollector extends Activity {
     }.start();
   }
 
-  private void displayThreadList(final String host, final String board, final BbsThreadList threads) {
+  private void displayThreadList(final String host, final String board, final ThreadList threads) {
     ArrayAdapter<String> adapter = new ArrayAdapter<String>(ImageCollector.this, R.layout.thread);
     for (BbsThread thread : threads) {
       adapter.add(thread.getTitle());

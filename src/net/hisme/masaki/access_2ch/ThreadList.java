@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class BbsThreadList extends ArrayList<BbsThread> {
+public class ThreadList extends ArrayList<BbsThread> {
   private static final long serialVersionUID = 1L;
 
   public void sort() {
